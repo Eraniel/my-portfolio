@@ -2,6 +2,7 @@ import { FunctionComponent, JSX } from 'react';
 import styled from "styled-components";
 
 import { jobplaces, projects, skills } from '../jobplaces';
+import Matrix from './Matrix';
 
 
 
@@ -14,6 +15,10 @@ const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
   user-select: none;
+  h2 {
+    color: #E5B80B;
+    font-size: 40px;
+  }
 `;
 
 const Header = styled.div`
@@ -27,13 +32,22 @@ const PhotoSection = styled.div`
   position: relative;
   margin: 5% 15% 0 15%;
   width: 70%;
+  overflow: hidden;
   img {
     width: 30%;
+    z-index: 1;
   }
   h1 {
     font-size: 70px;
     top: 50%;
     position: absolute;
+    z-index: 1;
+  }
+  h2 {
+    color: #ebebeb;
+    top: 70%;
+    position: absolute;
+    z-index: 1;
   }
 `;
 const AboutSection = styled.div`
@@ -42,10 +56,6 @@ const AboutSection = styled.div`
   position: relative;
   margin: 5% 15% 0 15%;
   width: 70%;
-  h2 {
-    color: #E5B80B;
-    font-size: 40px;
-  }
 `;
 const ContainerV = styled.div`
   display: flex;
@@ -61,10 +71,6 @@ const SkillsSection = styled.div`
   position: relative;
   margin: 5% 15% 0 15%;
   width: 70%;
-  h2 {
-    color: #E5B80B;
-    font-size: 40px;
-  }
 `;
 const Skill = styled.div`
   display: flex;
@@ -79,18 +85,10 @@ const PrevJobsSection = styled.div`
   position: relative;
   margin: 5% 15% 0 15%;
   width: 70%;
-  h2 {
-    color: #E5B80B;
-    font-size: 40px;
-  }
 `;
 const JobPlace = styled.div`
   display: flex;
   flex-direction: column;
-  h2 {
-    color: #ebebeb;
-    font-size: 30px;
-  }
 `;
 const ProjectsSection = styled.div`
   display: flex;
@@ -98,10 +96,6 @@ const ProjectsSection = styled.div`
   position: relative;
   margin: 5% 15% 0 15%;
   width: 70%;
-  h2 {
-    color: #E5B80B;
-    font-size: 40px;
-  }
 `;
 const Project = styled.div`
   display: flex;
@@ -117,10 +111,12 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
     return (
         <AppContainer>
           <Header>Header</Header>
-          
+         
           <PhotoSection>
+          <Matrix />
             <img src="img/BohdanP.png" alt="bohdan" />
-            <h1>Javascript Developer</h1>
+            <h1>Bohdan Pantiley</h1>
+            <h2>Javascript Developer</h2>
           </PhotoSection>
           <AboutSection>
             <h2>A little bit about me:</h2>
