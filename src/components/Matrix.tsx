@@ -1,6 +1,5 @@
-import { FunctionComponent, JSX, useState, useEffect } from 'react';
-import styled, {keyframes} from "styled-components";
-
+import React, { FunctionComponent, useState, useEffect } from 'react';
+import styled, { keyframes } from "styled-components";
 
 const MatrixContainer = styled.div`
     position: absolute;
@@ -18,18 +17,19 @@ const fadeOutAnimation = keyframes`
     }
 `;
 
-const ColumnSymbols = styled.div<{leftPosition : number}>`
+const ColumnSymbols = styled.div<{ leftPosition: number }>`
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 0;
     left: ${({ leftPosition }) => leftPosition}%;
 `;
-const Symbol = styled.div<{ animated: boolean }>`
+const Symbol = styled.div<{ animated: boolean, isLast: boolean }>`
     display: flex;
     margin: 1px 0;
     justify-content: center;
-    color: #E5B80B;
+    color: ${({ isLast }) => (isLast ? "#fff" : "#E5B80B")};
+    text-shadow: ${({ isLast }) => (isLast ? "0 0 10px #fff" : "0 0 10px #E5B80B")};
     width: 20px;
     height: 20px;
     animation: ${({ animated }) => (animated ? fadeOutAnimation : 'none')} 1.5s ease-in-out forwards;
@@ -37,15 +37,12 @@ const Symbol = styled.div<{ animated: boolean }>`
     &.fadeOut {
         animation-name: ${fadeOutAnimation};
     }
-    
 `;
-
-
-
 
 const Matrix: FunctionComponent = (): JSX.Element => {
     const symbols = ['⼈', '⼒', '⼕', '⼟', '⼣', '⼥', '⼯', '⼰', '⼿', '⼼', '⽉', '⽂', '⽓', '⽣', '⽢', '⽰', '⾆', '⾃', '⾔', '⾿', '⿕', '⿓', 'ボ', 'グ', 'ダ', 'ン', 'デ', 'ベ', 'ロ', 'ッ', 'パ', 'ー', '@', '#', '$', '&', '𐊠', '𐊶', 'B', 'O', 'H', 'D', 'N', 'P', 'T', 'I', 'L', 'E', 'Y', 'V', 'L', 'R', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
     const [randomElements, setRandomElements] = useState<string[]>([]);
+    const [fadeOutIndexes, setFadeOutIndexes] = useState<number[]>([]);
 
     useEffect(() => {
         const addSymbolWithDelay = (index: number) => {
@@ -54,7 +51,7 @@ const Matrix: FunctionComponent = (): JSX.Element => {
                 setRandomElements(prevRandomElements => [...prevRandomElements, symbols[randomIndex]]);
             }, 250 * index);
         };
-    
+
         for (let i = 0; i < 20; i++) {
             addSymbolWithDelay(i);
         }
@@ -64,33 +61,31 @@ const Matrix: FunctionComponent = (): JSX.Element => {
     useEffect(() => {
         if (randomElements.length === 20) {
             setTimeout(() => {
-                randomElements.forEach((_, index) => {
+                for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
-                        fadeOut(index);
-                    }, 250 * index);
-                });
+                        setFadeOutIndexes(prevIndexes => [...prevIndexes, i]);
+                    }, 250 * i);
+                }
             }, 500);
         }
     }, [randomElements]);
 
-    const fadeOut = (index: number) => {
-        const symbolFadeOut = document.getElementById(`symbolFadeOut_${index}`);
-        if (symbolFadeOut) {
-            symbolFadeOut.classList.add('fadeOut');
-        }
-    };
-   
-
     return (
         <MatrixContainer>
-            <ColumnSymbols leftPosition={10}>{randomElements.map((element, index) => (
-            <Symbol id={`symbolFadeOut_${index}`}  key={index} animated={false} style={{color: index === randomElements.length - 1 ? "#fff" : "#E5B80B", textShadow: index === randomElements.length - 1 ? "0 0 10px #fff" : "0 0 10px #E5B80B"}}>
-                {element}
-            </Symbol>
-        ))}</ColumnSymbols>
+            <ColumnSymbols leftPosition={10}>
+                {randomElements.map((element, index) => (
+                    <Symbol
+                        key={index}
+                        animated={fadeOutIndexes.includes(index)}
+                        isLast={index === randomElements.length - 1}
+                        className={fadeOutIndexes.includes(index) ? 'fadeOut' : ''}
+                    >
+                        {element}
+                    </Symbol>
+                ))}
+            </ColumnSymbols>
         </MatrixContainer>
     );
-
 };
 
 export default Matrix;
