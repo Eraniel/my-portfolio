@@ -16,7 +16,14 @@ const fadeOutAnimation = keyframes`
         opacity: 0;
     }
 `;
-
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
 const ColumnSymbols = styled.div<{ leftPosition: number }>`
     display: flex;
     flex-direction: column;
@@ -24,51 +31,63 @@ const ColumnSymbols = styled.div<{ leftPosition: number }>`
     top: 0;
     left: ${({ leftPosition }) => leftPosition}%;
 `;
-const Symbol = styled.div<{ animated: boolean, isLast: boolean }>`
-    display: flex;
+const Symbol = styled.div<{ animatedIn: boolean, animatedOut: boolean, isLast: boolean }>`
+    display: ${({ animatedIn }) => (animatedIn ? 'flex' : 'none')};
     margin: 1px 0;
     justify-content: center;
     color: ${({ isLast }) => (isLast ? "#fff" : "#E5B80B")};
-    text-shadow: ${({ isLast }) => (isLast ? "0 0 10px #fff" : "0 0 10px #E5B80B")};
+    text-shadow: ${({ isLast }) => (isLast ? "0 0 20px #fff" : "0 0 20px #E5B80B")};
     width: 20px;
     height: 20px;
-    animation: ${({ animated }) => (animated ? fadeOutAnimation : 'none')} 1.5s ease-in-out forwards;
     
-    &.fadeOut {
-        animation-name: ${fadeOutAnimation};
-    }
+    animation: ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? fadeInAnimation : fadeOutAnimation} ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? '0s' : '1.5s'} ease-in-out forwards;
 `;
 
 const Matrix: FunctionComponent = (): JSX.Element => {
     const symbols = ['⼈', '⼒', '⼕', '⼟', '⼣', '⼥', '⼯', '⼰', '⼿', '⼼', '⽉', '⽂', '⽓', '⽣', '⽢', '⽰', '⾆', '⾃', '⾔', '⾿', '⿕', '⿓', 'ボ', 'グ', 'ダ', 'ン', 'デ', 'ベ', 'ロ', 'ッ', 'パ', 'ー', '@', '#', '$', '&', '𐊠', '𐊶', 'B', 'O', 'H', 'D', 'N', 'P', 'T', 'I', 'L', 'E', 'Y', 'V', 'L', 'R', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
     const [randomElements, setRandomElements] = useState<string[]>([]);
+    const [fadeInIndexes, setFadeInIndexes] = useState<number[]>([]);
     const [fadeOutIndexes, setFadeOutIndexes] = useState<number[]>([]);
+    const [lastFadeInIndex, setLastFadeInIndex] = useState<number>(-1);
 
-    useEffect(() => {
-        const addSymbolWithDelay = (index: number) => {
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * symbols.length);
-                setRandomElements(prevRandomElements => [...prevRandomElements, symbols[randomIndex]]);
-            }, 250 * index);
-        };
-
-        for (let i = 0; i < 20; i++) {
-            addSymbolWithDelay(i);
+    useEffect(() => {       
+        const newRandomElements = [];
+        for (let i = 0; i < 30; i++) {
+            const randomIndex = Math.floor(Math.random() * symbols.length);
+            newRandomElements.push(symbols[randomIndex]);
         }
+        setRandomElements(newRandomElements);                
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
 
     useEffect(() => {
-        if (randomElements.length === 20) {
+        if (randomElements.length === 30) {
             setTimeout(() => {
-                for (let i = 0; i < 20; i++) {
+                for (let i = 0; i < 30; i++) {
                     setTimeout(() => {
-                        setFadeOutIndexes(prevIndexes => [...prevIndexes, i]);
-                    }, 250 * i);
+                        setFadeInIndexes(prevIndexes => {
+                            const updatedIndexes = [...prevIndexes, i];
+                            setLastFadeInIndex(i);
+                            return updatedIndexes;
+                        });
+                    }, 100 * i);
                 }
-            }, 500);
+            }, 300);
         }
     }, [randomElements]);
+
+    useEffect(() => {
+        if (fadeInIndexes.length === 30) {
+            setTimeout(() => {
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        setFadeOutIndexes(prevIndexes => [...prevIndexes, i]);
+                    }, 150 * i);
+                }
+            }, 300);
+        }
+    }, [fadeInIndexes]);
 
     return (
         <MatrixContainer>
@@ -76,9 +95,9 @@ const Matrix: FunctionComponent = (): JSX.Element => {
                 {randomElements.map((element, index) => (
                     <Symbol
                         key={index}
-                        animated={fadeOutIndexes.includes(index)}
-                        isLast={index === randomElements.length - 1}
-                        className={fadeOutIndexes.includes(index) ? 'fadeOut' : ''}
+                        animatedIn={fadeInIndexes.includes(index)}
+                        animatedOut={fadeOutIndexes.includes(index)}
+                        isLast={index === lastFadeInIndex}
                     >
                         {element}
                     </Symbol>
