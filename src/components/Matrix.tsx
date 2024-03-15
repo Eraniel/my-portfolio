@@ -49,22 +49,28 @@ const Matrix: FunctionComponent = (): JSX.Element => {
     const [fadeInIndexes, setFadeInIndexes] = useState<number[]>([]);
     const [fadeOutIndexes, setFadeOutIndexes] = useState<number[]>([]);
     const [lastFadeInIndex, setLastFadeInIndex] = useState<number>(-1);
+    const [isNewStart, setIsNewStart] = useState<boolean>(true);
 
-    useEffect(() => {       
-        const newRandomElements = [];
-        for (let i = 0; i < 30; i++) {
-            const randomIndex = Math.floor(Math.random() * symbols.length);
-            newRandomElements.push(symbols[randomIndex]);
-        }
-        setRandomElements(newRandomElements);                
+    const numberOfSymbols = 30;
+
+    useEffect(() => {
+        if (isNewStart) {      
+            const newRandomElements = [];
+            for (let i = 0; i < numberOfSymbols; i++) {
+                const randomIndex = Math.floor(Math.random() * symbols.length);
+                newRandomElements.push(symbols[randomIndex]);
+            }
+            setRandomElements(newRandomElements);
+            setIsNewStart(false);
+        }                        
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isNewStart]);
     
 
     useEffect(() => {
-        if (randomElements.length === 30) {
+        if (randomElements.length === numberOfSymbols) {
             setTimeout(() => {
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < numberOfSymbols; i++) {
                     setTimeout(() => {
                         setFadeInIndexes(prevIndexes => {
                             const updatedIndexes = [...prevIndexes, i];
@@ -78,9 +84,9 @@ const Matrix: FunctionComponent = (): JSX.Element => {
     }, [randomElements]);
 
     useEffect(() => {
-        if (fadeInIndexes.length === 30) {
+        if (fadeInIndexes.length === numberOfSymbols) {
             setTimeout(() => {
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < numberOfSymbols; i++) {
                     setTimeout(() => {
                         setFadeOutIndexes(prevIndexes => [...prevIndexes, i]);
                     }, 150 * i);
@@ -88,6 +94,16 @@ const Matrix: FunctionComponent = (): JSX.Element => {
             }, 300);
         }
     }, [fadeInIndexes]);
+
+    useEffect(() => {
+        if (fadeOutIndexes.length === numberOfSymbols) {
+            setTimeout(() => {
+                setRandomElements([]);
+                setIsNewStart(true);
+            }, 1510);
+        }
+    }, [fadeOutIndexes]);
+
 
     return (
         <MatrixContainer>
