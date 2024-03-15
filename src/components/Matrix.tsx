@@ -65,7 +65,7 @@ const Matrix: FunctionComponent = (): JSX.Element => {
         }                        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isNewStart]);
-    
+   
 
     useEffect(() => {
         if (randomElements.length === numberOfSymbols) {
@@ -99,6 +99,8 @@ const Matrix: FunctionComponent = (): JSX.Element => {
         if (fadeOutIndexes.length === numberOfSymbols) {
             setTimeout(() => {
                 setRandomElements([]);
+                setFadeInIndexes([]);
+                setFadeOutIndexes([]);
                 setIsNewStart(true);
             }, 1510);
         }
