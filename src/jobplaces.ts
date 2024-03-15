@@ -29,6 +29,6 @@ export const projects = [
 ];
 
 export const skills = [
-    "HTML", "CSS", "Javascript", "Typescript", "React.js", "Styled-components",
-    "Figma", "Adobe Photoshop"
+    "HTML", "CSS", "Javascript", "Typescript", "React.js", "Styled-components", "Git",
+    "Figma", "English", "Polish"
 ];

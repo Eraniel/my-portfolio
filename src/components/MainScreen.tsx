@@ -2,7 +2,7 @@ import { FunctionComponent, JSX } from 'react';
 import styled from "styled-components";
 
 import { jobplaces, projects, skills } from '../jobplaces';
-import Matrix from './Matrix';
+import MatrixColumn from './MatrixColumn';
 
 
 
@@ -25,7 +25,12 @@ const Header = styled.div`
   display: flex;
   position: fixed;
 `;
-
+const MatrixContainer = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+`;
 const PhotoSection = styled.div`
   display: flex;
   justify-content: center;
@@ -54,8 +59,10 @@ const AboutSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 5% 15% 0 15%;
+  margin: 5% 12% 0 12%;
   width: 70%;
+  border-right: 2px solid #e5b80b;
+  border-bottom: 2px solid #e5b80b;
 `;
 const ContainerV = styled.div`
   display: flex;
@@ -106,14 +113,21 @@ const Footer = styled.div`
 
 
 const MainScreen: FunctionComponent = (): JSX.Element => {
-  
+  const generateMatrixColumns = () => {
+    const columns = [];
+    for (let i = 0; i <= 96; i += 3) {
+        columns.push(<MatrixColumn key={i} leftPosition={i} />);
+    }
+    return columns;
+};
 
     return (
         <AppContainer>
           <Header>Header</Header>
-         
           <PhotoSection>
-          <Matrix />
+          <MatrixContainer>
+            {generateMatrixColumns()}
+          </MatrixContainer>
             <img src="img/BohdanP.png" alt="bohdan" />
             <h1>Bohdan Pantiley</h1>
             <h2>Javascript Developer</h2>
@@ -127,11 +141,10 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                 <p>Now I have theoretical knowledge, along with pet project, in Svelte. So I am eager to use them in real scenarios.</p>
                 <p></p>
               </ContainerV>
-              <img src="" alt="cool something" />
             </ContainerH>
           </AboutSection>
           <SkillsSection>
-            <h2>My skills:</h2>
+            <h2>My best skills:</h2>
             <ContainerH>
               {skills.map((skill) => {
                 return  (
@@ -139,6 +152,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                 );
               })}
             </ContainerH>
+            <h3>I am also OK in:</h3>
           </SkillsSection>
           
           <PrevJobsSection>

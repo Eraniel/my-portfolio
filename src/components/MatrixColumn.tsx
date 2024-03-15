@@ -1,13 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import styled, { keyframes } from "styled-components";
 
-const MatrixContainer = styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-`;
-
 const fadeOutAnimation = keyframes`
     from {
         opacity: 1;
@@ -43,7 +36,10 @@ const Symbol = styled.div<{ animatedIn: boolean, animatedOut: boolean, isLast: b
     animation: ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? fadeInAnimation : fadeOutAnimation} ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? '0s' : '1.5s'} ease-in-out forwards;
 `;
 
-const Matrix: FunctionComponent = (): JSX.Element => {
+interface MatrixColumnProps {
+    leftPosition: number;
+}
+const MatrixColumn: FunctionComponent<MatrixColumnProps> = ({ leftPosition } : MatrixColumnProps): JSX.Element => {
     const symbols = ['⼈', '⼒', '⼕', '⼟', '⼣', '⼥', '⼯', '⼰', '⼿', '⼼', '⽉', '⽂', '⽓', '⽣', '⽢', '⽰', '⾆', '⾃', '⾔', '⾿', '⿕', '⿓', 'ボ', 'グ', 'ダ', 'ン', 'デ', 'ベ', 'ロ', 'ッ', 'パ', 'ー', '@', '#', '$', '&', '𐊠', '𐊶', 'B', 'O', 'H', 'D', 'N', 'P', 'T', 'I', 'L', 'E', 'Y', 'V', 'L', 'R', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
     const [randomElements, setRandomElements] = useState<string[]>([]);
     const [fadeInIndexes, setFadeInIndexes] = useState<number[]>([]);
@@ -52,6 +48,7 @@ const Matrix: FunctionComponent = (): JSX.Element => {
     const [isNewStart, setIsNewStart] = useState<boolean>(true);
 
     const numberOfSymbols = 30;
+    const delayOfStart = () => Math.floor(Math.random() * 30 + 1) * 100;
 
     useEffect(() => {
         if (isNewStart) {      
@@ -79,7 +76,7 @@ const Matrix: FunctionComponent = (): JSX.Element => {
                         });
                     }, 100 * i);
                 }
-            }, 300);
+            }, delayOfStart());
         }
     }, [randomElements]);
 
@@ -108,21 +105,19 @@ const Matrix: FunctionComponent = (): JSX.Element => {
 
 
     return (
-        <MatrixContainer>
-            <ColumnSymbols leftPosition={10}>
-                {randomElements.map((element, index) => (
-                    <Symbol
-                        key={index}
-                        animatedIn={fadeInIndexes.includes(index)}
-                        animatedOut={fadeOutIndexes.includes(index)}
-                        isLast={index === lastFadeInIndex}
-                    >
-                        {element}
-                    </Symbol>
-                ))}
-            </ColumnSymbols>
-        </MatrixContainer>
+        <ColumnSymbols leftPosition={leftPosition}>
+            {randomElements.map((element, index) => (
+                <Symbol
+                    key={index}
+                    animatedIn={fadeInIndexes.includes(index)}
+                    animatedOut={fadeOutIndexes.includes(index)}
+                    isLast={index === lastFadeInIndex}
+                >
+                    {element}
+                </Symbol>
+            ))}
+        </ColumnSymbols>
     );
 };
 
-export default Matrix;
+export default MatrixColumn;
