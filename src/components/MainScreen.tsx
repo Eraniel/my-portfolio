@@ -1,10 +1,11 @@
-import { FunctionComponent, JSX } from 'react';
+import { FunctionComponent, JSX, useState, useEffect } from 'react';
 import styled from "styled-components";
 
-import { jobplaces, projects, skills } from '../jobplaces';
+import { jobplaces, projects, skills, skillsSec } from '../jobplaces';
 import MatrixColumn from './MatrixColumn';
+import JobCard from './JobCard';
 
-
+import { JobPlace } from '../interfases';
 
 const AppContainer = styled.div`
   font-family: 'Josefin Sans', sans-serif;
@@ -18,13 +19,41 @@ const AppContainer = styled.div`
   h2 {
     color: #E5B80B;
     font-size: 40px;
+    font-family: 'terminator';
   }
 `;
 
 const Header = styled.div`
   display: flex;
+  justify-content: space-between;
   position: fixed;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.0);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  width: 100%;
+  padding: 1% 0;
+  img {
+    margin: 0 0 0 15%;
+    cursor: pointer;
+  }
 `;
+const Resume = styled.a`
+ font-family: 'terminator';
+ font-size: 30px;
+ height: 100%;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ color: #E5B80B;
+ text-decoration: none;
+ margin: 0 15% 0 0;
+ padding: 0 0 0 15px;
+ img {
+  margin: 0 0 0 10px;
+ }
+`;
+
 const MatrixContainer = styled.div`
     position: absolute;
     width: 100%;
@@ -35,7 +64,7 @@ const PhotoSection = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  margin: 5% 15% 0 15%;
+  margin: 7% 15% 0 15%;
   width: 70%;
   overflow: hidden;
   img {
@@ -44,6 +73,7 @@ const PhotoSection = styled.div`
   }
   h1 {
     font-size: 70px;
+    font-family: 'terminator';
     top: 50%;
     position: absolute;
     z-index: 1;
@@ -59,7 +89,7 @@ const AboutSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 5% 12% 0 12%;
+  margin: 7% 15% 0 15%;
   width: 70%;
   border-right: 2px solid #e5b80b;
   border-bottom: 2px solid #e5b80b;
@@ -76,32 +106,66 @@ const SkillsSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 5% 15% 0 15%;
+  margin: 7% 15% 0 15%;
   width: 70%;
 `;
-const Skill = styled.div`
+const Skill = styled.div<{sec: boolean}>`
   display: flex;
   padding: 5px 10px;
   margin: 5px 10px 0 0;
-  background-color: #E5B80B;
+  background-color: ${({ sec }) => (sec ? "#ebebeb" : "#E5B80B")};
   color: black;
 `;
 const PrevJobsSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 5% 15% 0 15%;
+  margin: 7% 15% 0 15%;
   width: 70%;
 `;
-const JobPlace = styled.div`
+  // scroll horizontal
+  // overflow: hidden;
+  // white-space: nowrap;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+  // overflow-x: scroll;
+  // &::-webkit-scrollbar {
+  //  display: none;
+  // }
+const PrevJobs = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 400px;
+  width: 50%;
+`;
+const JobPlaceInfo = styled.div`
   display: flex;
   flex-direction: column;
+  width: 50%;
+  white-space: normal;
+  padding: 0 20px 0 0;
+  h2 {
+    font-size: 30px;
+    margin: 0;
+  }
+  h3 {
+    margin: 20px 0 0 0;
+  }
+  h4 {
+    margin: 20px 0 0 0;
+    color: #E5B80B;
+  }
+  p {
+    margin: 20px 0 0 0;
+  }
 `;
+
 const ProjectsSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 5% 15% 0 15%;
+  margin: 7% 15% 0 15%;
   width: 70%;
 `;
 const Project = styled.div`
@@ -113,17 +177,61 @@ const Footer = styled.div`
 
 
 const MainScreen: FunctionComponent = (): JSX.Element => {
+  //JobSection
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); 
+  const [selectedJob, setSelectedJob] = useState<JobPlace | null>(null);
+  const handleClick = (selected : JobPlace) => {
+    if (selected.id === activeIndex){
+      setActiveIndex(null);
+      setSelectedJob(null);
+    } else {
+      setActiveIndex(null);
+      setSelectedJob(null);
+
+      setTimeout(() => {
+        setActiveIndex(selected.id);
+        setSelectedJob(selected);
+      }, 50);
+    }
+  };
+  const textTyper = (text: string, id: string) => {
+    let i = 0;
+    const element = document.getElementById(id);
+    if (element !== null) {
+      element.innerHTML = '';
+      const typeNextChar = () => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeNextChar, 50);
+        }
+      };
+      typeNextChar();
+    }
+  };
+  useEffect(() => {
+    if (selectedJob){
+      textTyper(selectedJob.name, "job-name");
+      textTyper(selectedJob.time, "job-time");
+      textTyper(selectedJob.position, "job-position");
+    } 
+  }, [selectedJob]);
+
+  //Matrix
   const generateMatrixColumns = () => {
     const columns = [];
     for (let i = 0; i <= 96; i += 3) {
         columns.push(<MatrixColumn key={i} leftPosition={i} />);
     }
     return columns;
-};
+  };
 
     return (
         <AppContainer>
-          <Header>Header</Header>
+          <Header>
+            <img onClick={() => window.scrollTo(0, 0)} src="img/LogoYellow.png" alt="logo"/>
+            <Resume href="img/BohdanResume.pdf" download="Bohdan's resume" target="_blank">Resume<img src ="img/download-icon.svg" alt="download" /></Resume>
+          </Header>
           <PhotoSection>
           <MatrixContainer>
             {generateMatrixColumns()}
@@ -133,43 +241,58 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
             <h2>Javascript Developer</h2>
           </PhotoSection>
           <AboutSection>
-            <h2>A little bit about me:</h2>
+            <h2>Hello there!</h2>
             <ContainerH>
               <ContainerV style={{width: '60%'}}>
-                <p>Hello there!</p>
-                <p>Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React. My earlier background spans across various domains. Transitioning from roles in project management and system administration to a freelance career in graphic design and website markup underscores my versatility. I'm deeply committed to continuous learning, as evidenced by my completion of numerous online courses in web development and React.js.</p>
-                <p>Now I have theoretical knowledge, along with pet project, in Svelte. So I am eager to use them in real scenarios.</p>
+                <p>Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React. My earlier background spans across various domains. Transitioning from roles in project management and system administration to a freelance career in graphic design and website markup underscores my versatility.</p>
+                <p>Now I am looking for an opportunity to improve my skills in friendly team.</p>
                 <p></p>
               </ContainerV>
             </ContainerH>
           </AboutSection>
           <SkillsSection>
-            <h2>My best skills:</h2>
+            <h2>My main skills:</h2>
             <ContainerH>
               {skills.map((skill) => {
                 return  (
-                  <Skill>{skill}</Skill>
+                  <Skill sec={false}>{skill}</Skill>
                 );
               })}
             </ContainerH>
-            <h3>I am also OK in:</h3>
+            <h3>Secondary skills:</h3>
+            <ContainerH>
+              {skillsSec.map((skill) => {
+                return  (
+                  <Skill sec={true}>{skill}</Skill>
+                );
+              })}
+            </ContainerH>
           </SkillsSection>
           
           <PrevJobsSection>
             <h2>My job places:</h2>
             <ContainerH>
-              {jobplaces.map((jobplace) => {
-                return  (
-                  <JobPlace>
-                    <h2>{jobplace.name}</h2>
-                    <h3>{jobplace.time}</h3>
-                    <h4>{jobplace.position}</h4>
-                    <p>{jobplace.description}</p>
-                  </JobPlace>
-                );
-              })}
+              <JobPlaceInfo>
+                {selectedJob ?
+                  <>
+                  <h2 id="job-name"> </h2>
+                  <h3 id="job-time"> </h3>
+                  <h4 id="job-position"> </h4>
+                  <p>{selectedJob.description}</p>
+                  </>
+                  : null
+                }
+              </JobPlaceInfo>
+              <PrevJobs>
+                {jobplaces.map((jobplace) => {
+                  return  (
+                    <JobCard key={jobplace.id} zIndex={ jobplaces.length - jobplace.id } active={activeIndex === jobplace.id} onClick={() => {handleClick(jobplace)}} jobplace={jobplace} />
+                  );
+                })}
+              </PrevJobs>
             </ContainerH>
           </PrevJobsSection>
+
           <ProjectsSection>
             <h2>My projects:</h2>
             <ContainerV>
