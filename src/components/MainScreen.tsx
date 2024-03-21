@@ -27,7 +27,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  z-index: 5;
+  z-index: 10;
   background: rgba(255, 255, 255, 0.0);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -85,7 +85,7 @@ const PhotoSection = styled.div`
     z-index: 1;
   }
 `;
-const AboutSection = styled.div`
+const AboutSection = styled.div<{boxShadow: string}>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -93,6 +93,14 @@ const AboutSection = styled.div`
   width: 70%;
   border-right: 2px solid #e5b80b;
   border-bottom: 2px solid #e5b80b;
+  box-shadow: ${({ boxShadow }) => boxShadow};
+  -webkit-box-shadow: ${({ boxShadow }) => boxShadow};
+  -moz-box-shadow: ${({ boxShadow }) => boxShadow};
+  transition: box-shadow 1s ease-in-out;
+  p {
+    letter-spacing: 1px;
+    line-height: 145%;
+  }
 `;
 const ContainerV = styled.div`
   display: flex;
@@ -108,13 +116,20 @@ const SkillsSection = styled.div`
   position: relative;
   margin: 7% 15% 0 15%;
   width: 70%;
+  h3 {
+    margin: 50px 0 15px 0;
+  }
 `;
 const Skill = styled.div<{sec: boolean}>`
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 5px 10px;
   margin: 5px 10px 0 0;
   background-color: ${({ sec }) => (sec ? "#ebebeb" : "#E5B80B")};
   color: black;
+  letter-spacing: 1px;
+  line-height: 145%;
 `;
 const PrevJobsSection = styled.div`
   display: flex;
@@ -147,7 +162,7 @@ const JobPlaceInfo = styled.div`
   padding: 0 20px 0 0;
   h2 {
     font-size: 30px;
-    margin: 0;
+    margin: 30px 0 0 0;
   }
   h3 {
     margin: 20px 0 0 0;
@@ -158,6 +173,8 @@ const JobPlaceInfo = styled.div`
   }
   p {
     margin: 20px 0 0 0;
+    letter-spacing: 1px;
+    line-height: 145%;
   }
 `;
 
@@ -168,11 +185,55 @@ const ProjectsSection = styled.div`
   margin: 7% 15% 0 15%;
   width: 70%;
 `;
-const Project = styled.div`
+const Project = styled.div<{boxShadow: string}>`
   display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #E5B80B;
+  box-shadow: ${({ boxShadow }) => boxShadow};
+  -webkit-box-shadow: ${({ boxShadow }) => boxShadow};
+  -moz-box-shadow: ${({ boxShadow }) => boxShadow};
+  transition: box-shadow 1s ease-in-out;
+
+  h3 {
+    color: #E5B80B;
+    font-size: 30px;
+    font-family: terminator;
+  }
+  a {
+    text-decoration: none;
+  }
+  img {
+    width: 450px;
+    height: 300px;
+    object-fit: cover;
+  }
+  p {
+    align-self: center;
+    width: 40%;
+    margin: 0 0 0 10%;
+    letter-spacing: 1px;
+    line-height: 145%;
+  }
 `;
 const Footer = styled.div`
   display: flex;
+  flex-direction: column;
+  margin: 7% 15% 7% 15%;
+  width: 70%;
+  h3 {
+    font-size: 30px;
+    margin: 0 0 20px 0;
+  }
+  img {
+    margin: 0 15px 0 0;
+  }
+`;
+const InnerFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  p {
+    user-select: all;
+  }
 `;
 
 
@@ -194,7 +255,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
       }, 50);
     }
   };
-  const textTyper = (text: string, id: string) => {
+  const textTyper = (text: string, id: string, speed: number) => {
     let i = 0;
     const element = document.getElementById(id);
     if (element !== null) {
@@ -203,7 +264,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
         if (i < text.length) {
           element.innerHTML += text.charAt(i);
           i++;
-          setTimeout(typeNextChar, 50);
+          setTimeout(typeNextChar, speed);
         }
       };
       typeNextChar();
@@ -211,9 +272,10 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
   };
   useEffect(() => {
     if (selectedJob){
-      textTyper(selectedJob.name, "job-name");
-      textTyper(selectedJob.time, "job-time");
-      textTyper(selectedJob.position, "job-position");
+      textTyper(selectedJob.name, "job-name", 50);
+      textTyper(selectedJob.time, "job-time", 50);
+      textTyper(selectedJob.position, "job-position", 50);
+      textTyper(selectedJob.description, "job-description", 5);
     } 
   }, [selectedJob]);
 
@@ -225,6 +287,17 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
     }
     return columns;
   };
+
+  //shadow-glowing
+  const [isFirstShadow, setIsFirstShadow] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFirstShadow((prev) => !prev);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
     return (
         <AppContainer>
@@ -240,7 +313,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
             <h1>Bohdan Pantiley</h1>
             <h2>Javascript Developer</h2>
           </PhotoSection>
-          <AboutSection>
+          <AboutSection boxShadow={isFirstShadow ? '15px 15px 15px -5px rgba(229,184,11,0.4)' : '20px 19px 15px -15px rgba(229,184,11,0.4)'}>
             <h2>Hello there!</h2>
             <ContainerH>
               <ContainerV style={{width: '60%'}}>
@@ -251,7 +324,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
             </ContainerH>
           </AboutSection>
           <SkillsSection>
-            <h2>My main skills:</h2>
+            <h2>My main skills</h2>
             <ContainerH>
               {skills.map((skill) => {
                 return  (
@@ -259,7 +332,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                 );
               })}
             </ContainerH>
-            <h3>Secondary skills:</h3>
+            <h3>Secondary skills</h3>
             <ContainerH>
               {skillsSec.map((skill) => {
                 return  (
@@ -267,10 +340,9 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                 );
               })}
             </ContainerH>
-          </SkillsSection>
-          
+          </SkillsSection>         
           <PrevJobsSection>
-            <h2>My job places:</h2>
+            <h2>Job places</h2>
             <ContainerH>
               <JobPlaceInfo>
                 {selectedJob ?
@@ -278,7 +350,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                   <h2 id="job-name"> </h2>
                   <h3 id="job-time"> </h3>
                   <h4 id="job-position"> </h4>
-                  <p>{selectedJob.description}</p>
+                  <p id="job-description"> </p>
                   </>
                   : null
                 }
@@ -292,24 +364,43 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
               </PrevJobs>
             </ContainerH>
           </PrevJobsSection>
-
           <ProjectsSection>
-            <h2>My projects:</h2>
+            <h2>Solo projects</h2>
             <ContainerV>
               {projects.map((project) => {
                 return  (
-                  <Project>
+                  <Project boxShadow={isFirstShadow ? '-2px 15px 10px -8px rgba(229,184,11,0.4)' : '-2px 19px 10px -8px rgba(229,184,11,0.4)'}>
                     <h3>{project.name}</h3>
-                    <img src={project.img} alt=""/>
-                    <p>{project.description}</p>
-                    <h4>{project.link}</h4>
+                    <ContainerH>
+                      <a href={project.link} target="_blank" rel="noopener noreferrer"><img src={project.img} alt=""/></a>
+                      <p>{project.description}</p>
+                    </ContainerH>
                   </Project>
                 );
               })}
             </ContainerV>
           </ProjectsSection>
           
-          <Footer></Footer>
+          <Footer>
+            <h2>Contact Me</h2>
+            <h3>And let's create something cool!</h3>
+            <InnerFooter>
+              <ContainerV style={{width: '50%'}}>
+                <ContainerH>
+                  <img src="img/github.svg" alt="Github-icon" />
+                  <p>https://github.com/Eraniel</p>
+                </ContainerH>
+                <ContainerH>
+                  <img src="img/gmail.svg" alt="Email-icon" />
+                  <p>l.o.t.future@gmail.com</p>
+                </ContainerH>
+              </ContainerV>      
+              <ContainerV style={{width: '50%'}}>
+                <p>This website is owned and operated by Bohdan Pantiley</p>
+                <p>Copyright © {new Date().getFullYear()}</p>
+              </ContainerV>
+            </InnerFooter>
+          </Footer>
         </AppContainer>
       );
 };

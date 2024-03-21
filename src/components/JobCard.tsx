@@ -23,12 +23,16 @@ const JobPlaceClosed = styled.div<{active : boolean}>`
     perspective: 100px;
     transition: transform 1s;
     transform: ${({ active }) => (active ? "rotateY(0deg) skewY(0deg)" : "rotateY(30deg) skewY(10deg)")};
-    p{
+    p {
         margin: 10px 15px;
     }
 
     &:last-child {
         margin: 10px 0 0 0;
+    }
+    &:hover {
+        color: #fff;
+        text-shadow: 0 0 20px #fff;
     }
 `;
 
