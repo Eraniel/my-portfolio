@@ -303,7 +303,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
         <AppContainer>
           <Header>
             <img onClick={() => window.scrollTo(0, 0)} src="img/LogoYellow.png" alt="logo"/>
-            <Resume href="img/BohdanResume.pdf" download="Bohdan's resume" target="_blank">Resume<img src ="img/download-icon.svg" alt="download" /></Resume>
+            <Resume href="img/BohdanPantiley.pdf" download="Bohdan's resume" target="_blank">Resume<img src ="img/download-icon.svg" alt="download" /></Resume>
           </Header>
           <PhotoSection>
           <MatrixContainer>
