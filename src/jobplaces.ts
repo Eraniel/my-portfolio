@@ -20,7 +20,7 @@ export const projects = [
     {img:"img/projectsImg/huge_portfolio.png", name:`website portfolio`, description:`One of my latest projects. Portfolio website for a ui/ux designer, with possibility to add new works in a simple way. Clean, with some animations. Design was provided by the current owner.`, link:`https://helen-paziuk.netlify.app`},
     {img:"img/projectsImg/calendar_app.png", name:`calendar app`, description:`One of my "pet projects" based on test-task. All features that calendar-app shold have are present. Just make some clicks there by yourself to see how it works.`, link:`https://calendar-app-by-bohdan.netlify.app`},
     {img:"img/projectsImg/listen_music.png", name:`part of the web-app`, description:`Keep in mind that it is only a part of the code I did for the "Lingoal" app. It is one of the actual features I have added. Check the real app to see how this part of code was integrated.`, link:"https://listen-music-by-bohdanpantiley.netlify.app/"},
-    {img:"img/projectsImg/old_portfolio.png", name:`my old portfolio`, description:`My old portfolio which I created when I just learned React. Now it is old, but contain some interesting ideas and animations.`, link:`https://eraniel-portfolio.netlify.app`},
+    {img:"img/projectsImg/old_portfolio.png", name:`my old portfolio`, description:`My old portfolio which I created when I just learned React. Now it is old, but contain some interesting ideas and animations.`, link:`https://bohdan-pantiley-old-portfolio.netlify.app/`},
     {img:"img/projectsImg/fallout-mg.png", name:`fallout mini-game`, description:`One of my very first own projects. It is mostly interesting for "Fallout games" fans. Idea of creating a game on the website.`, link:`https://fallout-sim-demo.netlify.app`},
 ];
 

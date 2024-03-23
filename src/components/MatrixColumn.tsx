@@ -26,14 +26,24 @@ const ColumnSymbols = styled.div<{ leftPosition: number }>`
 `;
 const Symbol = styled.div<{ animatedIn: boolean, animatedOut: boolean, isLast: boolean }>`
     display: ${({ animatedIn }) => (animatedIn ? 'flex' : 'none')};
-    margin: 1px 0;
+    margin: 1px 0 0 0;
     justify-content: center;
     color: ${({ isLast }) => (isLast ? "#fff" : "#E5B80B")};
     text-shadow: ${({ isLast }) => (isLast ? "0 0 20px #fff" : "0 0 20px #E5B80B")};
-    width: 20px;
-    height: 20px;
-    
     animation: ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? fadeInAnimation : fadeOutAnimation} ${({ animatedIn, animatedOut }) => (animatedIn && !animatedOut) ? '0s' : '1.5s'} ease-in-out forwards;
+    font-size: 20px;
+    @media (max-width: 1600px) {
+        font-size: 18px;
+    }
+    @media (max-width: 1200px) {
+        font-size: 16px;
+    }
+    @media (max-width: 900px) {
+        font-size: 12px;
+    }
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
 `;
 
 interface MatrixColumnProps {

@@ -5,9 +5,9 @@ import { JobPlace } from '../interfases';
 const JobPlaceClosed = styled.div<{active : boolean}>`
     display: flex;
     flex-direction: column;
-    
-    width: 150px;
-    height: 150px;
+    min-width: 20%;
+    max-width: 20%;
+    height: 175px;
     cursor: pointer;
     margin: 10px 0 0 0;
     white-space: normal;
@@ -26,13 +26,20 @@ const JobPlaceClosed = styled.div<{active : boolean}>`
     p {
         margin: 10px 15px;
     }
-
-    &:last-child {
-        margin: 10px 0 0 0;
-    }
     &:hover {
         color: #fff;
         text-shadow: 0 0 20px #fff;
+    }
+    @media (max-width: 1400px) {
+        min-width: 150px;
+        max-width: 150px;
+        top: 0;
+        right: ${({ active }) => (active ? 20 : 0)}%;
+    }
+    @media (max-width: 768px) {
+        min-width: 100%;
+        max-width: 100%;
+        right: ${({ active }) => (active ? 5 : 0)}%;
     }
 `;
 

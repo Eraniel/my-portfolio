@@ -37,23 +37,46 @@ const Header = styled.div`
     margin: 0 0 0 15%;
     cursor: pointer;
   }
+  @media (max-width: 900px) {
+    img {
+      width: 15%;
+    }
+  }
+  @media (max-width: 768px) {
+    img {
+      margin: 0 0 0 5%;
+    }
+  }
 `;
 const Resume = styled.a`
- font-family: 'terminator';
- font-size: 30px;
- height: 100%;
- cursor: pointer;
- display: flex;
- align-items: center;
- color: #E5B80B;
- text-decoration: none;
- margin: 0 15% 0 0;
- padding: 0 0 0 15px;
- img {
-  margin: 0 0 0 10px;
- }
+  font-family: 'terminator';
+  font-size: 30px;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #E5B80B;
+  text-decoration: none;
+  margin: 0 15% 0 0;
+  padding: 0 0 0 15px;
+  img {
+    margin: 0 0 0 10px;
+  }
+  @media (max-width: 768px) {
+    margin: 0 5% 0 0;
+    font-size: 20px;
+  }
 `;
-
+const ResumeBottom = styled.a`
+  font-family: 'terminator';
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0 0;
+  cursor: pointer;
+  color: #E5B80B;
+  text-decoration: none;
+`;
 const MatrixContainer = styled.div`
     position: absolute;
     width: 100%;
@@ -84,6 +107,57 @@ const PhotoSection = styled.div`
     position: absolute;
     z-index: 1;
   }
+  span {
+    transition: color 2s;
+    &:hover {
+      color: #E5B80B;
+      transition: color 0s;
+    }
+  }
+  @media (max-width: 1600px) {
+    h1 {
+      font-size: 60px;
+    }
+    h2 {
+      font-size: 36px;
+    }
+  }
+  @media (max-width: 1300px) {
+    h1 {
+      font-size: 50px;
+    }
+    h2 {
+      font-size: 32px;
+    }
+  }
+  @media (max-width: 1100px) {
+    h1 {
+      font-size: 40px;
+    }
+    h2 {
+      font-size: 28px;
+    }
+  }
+  @media (max-width: 900px) {
+    h1 {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: 24px;
+    }
+  }
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
+  }
+  @media (max-width: 550px) {
+    h1 {
+      font-size: 22px;
+    }
+    h2 {
+      font-size: 18px;
+    }
+  }
 `;
 const AboutSection = styled.div<{boxShadow: string}>`
   display: flex;
@@ -101,6 +175,21 @@ const AboutSection = styled.div<{boxShadow: string}>`
     letter-spacing: 1px;
     line-height: 145%;
   }
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
+  }
+`;
+const ContainerVAbout = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `;
 const ContainerV = styled.div`
   display: flex;
@@ -109,6 +198,7 @@ const ContainerV = styled.div`
 const ContainerH = styled.div`
   display: flex;
   flex-direction: row;
+  
 `;
 const SkillsSection = styled.div`
   display: flex;
@@ -118,6 +208,10 @@ const SkillsSection = styled.div`
   width: 70%;
   h3 {
     margin: 50px 0 15px 0;
+  }
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
   }
 `;
 const Skill = styled.div<{sec: boolean}>`
@@ -137,6 +231,10 @@ const PrevJobsSection = styled.div`
   position: relative;
   margin: 7% 15% 0 15%;
   width: 70%;
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
+  }
 `;
   // scroll horizontal
   // overflow: hidden;
@@ -153,6 +251,14 @@ const PrevJobs = styled.div`
   justify-content: flex-end;
   height: 400px;
   width: 50%;
+  @media (max-width: 1400px) {
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 800px;
+    width: 35%;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;
 const JobPlaceInfo = styled.div`
   display: flex;
@@ -176,14 +282,27 @@ const JobPlaceInfo = styled.div`
     letter-spacing: 1px;
     line-height: 145%;
   }
+  @media (max-width: 1280px) {
+    width: 65%;
+  }
 `;
-
 const ProjectsSection = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 7% 15% 0 15%;
   width: 70%;
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
+  }
+`;
+const ContainerHChange = styled.div`
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 1080px) {
+    flex-direction: column;
+  }
 `;
 const Project = styled.div<{boxShadow: string}>`
   display: flex;
@@ -214,11 +333,25 @@ const Project = styled.div<{boxShadow: string}>`
     letter-spacing: 1px;
     line-height: 145%;
   }
+  @media (max-width: 1280px) {
+    p {
+      margin: 0 0 0 5%;
+    }
+  }
+  @media (max-width: 1080px) {
+    img {
+      width: 100%;
+    }
+    p {
+      margin: 5% 0;
+      width: 100%;
+    }
+  }
 `;
 const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 7% 15% 7% 15%;
+  margin: 7% 15%;
   width: 70%;
   h3 {
     font-size: 30px;
@@ -227,6 +360,21 @@ const Footer = styled.div`
   img {
     margin: 0 15px 0 0;
   }
+  @media (max-width: 768px) {
+    margin: 7% 5%;
+    width: 90%;
+  }
+`;
+const ContainerVFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  @media (max-width: 1280px) {
+    width: 60%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const InnerFooter = styled.div`
   display: flex;
@@ -234,10 +382,30 @@ const InnerFooter = styled.div`
   p {
     user-select: all;
   }
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
 `;
 
-
 const MainScreen: FunctionComponent = (): JSX.Element => {
+  //PhotoSection
+  const wrapLettersWithSpan = (text: string) => {
+    const result = [];
+    const pattern = /\S/;
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (pattern.test(char)) {
+            result.push(<span key={i}>{char}</span>);
+        } else {
+            result.push(char);
+        }
+    }
+    return result;
+  }
+  const originName = "Bohdan Pantiley";
+  const originSpec = "Front-end Developer";
+  const wrappedName = wrapLettersWithSpan(originName);
+  const wrappedSpec = wrapLettersWithSpan(originSpec);
   //JobSection
   const [activeIndex, setActiveIndex] = useState<number | null>(null); 
   const [selectedJob, setSelectedJob] = useState<JobPlace | null>(null);
@@ -310,22 +478,23 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
             {generateMatrixColumns()}
           </MatrixContainer>
             <img src="img/BohdanP.png" alt="bohdan" />
-            <h1>Bohdan Pantiley</h1>
-            <h2>Javascript Developer</h2>
+            <h1>{wrappedName}</h1>
+            <h2>{wrappedSpec}</h2>
           </PhotoSection>
           <AboutSection boxShadow={isFirstShadow ? '15px 15px 15px -5px rgba(229,184,11,0.4)' : '20px 19px 15px -15px rgba(229,184,11,0.4)'}>
             <h2>Hello there!</h2>
             <ContainerH>
-              <ContainerV style={{width: '60%'}}>
+              <ContainerVAbout>
                 <p>Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React. My earlier background spans across various domains. Transitioning from roles in project management and system administration to a freelance career in graphic design and website markup underscores my versatility.</p>
                 <p>Now I am looking for an opportunity to improve my skills in friendly team.</p>
                 <p></p>
-              </ContainerV>
+              </ContainerVAbout>
             </ContainerH>
           </AboutSection>
+          
           <SkillsSection>
-            <h2>My main skills</h2>
-            <ContainerH>
+            <h2>Main skills</h2>
+            <ContainerH style={{flexWrap:'wrap'}}>
               {skills.map((skill) => {
                 return  (
                   <Skill sec={false}>{skill}</Skill>
@@ -333,7 +502,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
               })}
             </ContainerH>
             <h3>Secondary skills</h3>
-            <ContainerH>
+            <ContainerH style={{flexWrap:'wrap'}}>
               {skillsSec.map((skill) => {
                 return  (
                   <Skill sec={true}>{skill}</Skill>
@@ -371,21 +540,20 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                 return  (
                   <Project boxShadow={isFirstShadow ? '-2px 15px 10px -8px rgba(229,184,11,0.4)' : '-2px 19px 10px -8px rgba(229,184,11,0.4)'}>
                     <h3>{project.name}</h3>
-                    <ContainerH>
+                    <ContainerHChange>
                       <a href={project.link} target="_blank" rel="noopener noreferrer"><img src={project.img} alt=""/></a>
                       <p>{project.description}</p>
-                    </ContainerH>
+                    </ContainerHChange>
                   </Project>
                 );
               })}
             </ContainerV>
-          </ProjectsSection>
-          
+          </ProjectsSection>         
           <Footer>
             <h2>Contact Me</h2>
             <h3>And let's create something cool!</h3>
             <InnerFooter>
-              <ContainerV style={{width: '50%'}}>
+              <ContainerVFooter>
                 <ContainerH>
                   <img src="img/github.svg" alt="Github-icon" />
                   <p>https://github.com/Eraniel</p>
@@ -394,11 +562,12 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
                   <img src="img/gmail.svg" alt="Email-icon" />
                   <p>l.o.t.future@gmail.com</p>
                 </ContainerH>
-              </ContainerV>      
-              <ContainerV style={{width: '50%'}}>
-                <p>This website is owned and operated by Bohdan Pantiley</p>
+                <ResumeBottom href="img/BohdanPantiley.pdf" download="Bohdan's resume" target="_blank">Resume download<img src ="img/download-icon.svg" alt="download" /></ResumeBottom>
+              </ContainerVFooter>      
+              <ContainerVFooter>
+                <p>This website is owned, created and operated by Bohdan Pantiley</p>
                 <p>Copyright © {new Date().getFullYear()}</p>
-              </ContainerV>
+              </ContainerVFooter>
             </InnerFooter>
           </Footer>
         </AppContainer>
