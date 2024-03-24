@@ -1,3 +1,10 @@
+export const aboutme = {
+    p1:`Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React.
+        My goal is to merge my passion for technology with my creativity and analytical thinking to create effective and innovative web solutions.`,
+    p2:`My journey in the IT field started with roles in project management and system administration, which later evolved into a freelance career in graphic design and web development. 
+        This experience makes me a flexible and adaptable professional, capable of working in diverse team environments and at different stages of project development.`
+};
+
 export const jobplaces = [
     {id: 0, name:"Freelance developer", time:"Mar 2023 - now", position:"front-end developer", description:`
     Since I lost my job during that blackout winter it became very hard to find a job in Ukraine during the war. So that's why I mostly worked on some website developing projects on freelance and for friends. I am not including this time in my total work experience,
@@ -8,7 +15,7 @@ export const jobplaces = [
     In addition to that, I was responsible for maintenance of websites: sprakkraft.se, sprakkraft.org.
     And we had outsource contracts with “UR Play”and “YLE”, where my role was mostly maintenance of their websites and adding new features to websites and video players.
     `}, 
-    {id: 2, name:"Jet-up", time:"Sep 2020-  Dec 2020", position:"junior react-developer", description:`I started my career path here - in a local company, but I wasn't there for a long time because of Covid pandemic and the traffic crisis that appeared because of that. Company demanded from us to come to the office anyway, and forbade working remotely.`},
+    {id: 2, name:"Jet-up", time:"Sep 2020-  Dec 2020", position:"junior react-developer", description:`I started my career path here - in a local company, but I wasn't working there for a long time because of Covid pandemic and the traffic crisis that appeared because of that. Company demanded from us to come to the office anyway, and forbade working remotely.`},
     {id: 3, name:"Upwork, freelance", time:"Aug 2017 - Jan 2020", position:"2d artist, web-designer & markup-developer", description:`Long time I was working as a freelancer. I started as an artist
     for pixel-art games and web-designer. But later I learned html/css and started to take projects for developing templates and simple landing web-pages.
     `},

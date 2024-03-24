@@ -1,7 +1,7 @@
 import { FunctionComponent, JSX, useState, useEffect } from 'react';
 import styled from "styled-components";
 
-import { jobplaces, projects, skills, skillsSec } from '../jobplaces';
+import { aboutme, jobplaces, projects, skills, skillsSec } from '../jobplaces';
 import MatrixColumn from './MatrixColumn';
 import JobCard from './JobCard';
 
@@ -22,7 +22,6 @@ const AppContainer = styled.div`
     font-family: 'terminator';
   }
 `;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -485,8 +484,8 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
             <h2>Hello there!</h2>
             <ContainerH>
               <ContainerVAbout>
-                <p>Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React. My earlier background spans across various domains. Transitioning from roles in project management and system administration to a freelance career in graphic design and website markup underscores my versatility.</p>
-                <p>Now I am looking for an opportunity to improve my skills in friendly team.</p>
+                <p>{aboutme.p1}</p>
+                <p>{aboutme.p2}</p>
                 <p></p>
               </ContainerVAbout>
             </ContainerH>
