@@ -1,5 +1,5 @@
 export const aboutme = {
-    p1:`Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React.
+    p1:`Name is Bohdan and I am sociable, curious and positive person. And actually, a web developer with 2 years of experience in JavaScript and React, and even more in simple markup creating with HTML/CSS.
         My goal is to merge my passion for technology with my creativity and analytical thinking to create effective and innovative web solutions.`,
     p2:`My journey in the IT field started with roles in project management and system administration, which later evolved into a freelance career in graphic design and web development. 
         This experience makes me a flexible and adaptable professional, capable of working in diverse team environments and at different stages of project development.`
