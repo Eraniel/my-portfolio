@@ -6,11 +6,11 @@ export const aboutme = {
 };
 
 export const jobplaces = [
-    {id: 0, name:"Freelance developer", time:"Mar 2023 - now", position:"front-end developer", description:`
-    Since I lost my job during that blackout winter it became very hard to find a job in Ukraine during the war. So that's why I mostly worked on some website developing projects on freelance and for friends. I am not including this time in my total work experience,
-    but want to say that I keep learning and improving my skills.
+    {id: 0, name:`Freelance on "Fiverr"`, time:"Mar 2023 - now", position:"front-end developer", description:`
+    It is hard to find the job because of war, so that's why I mostly working on some website developing projects on freelance. I already worked on front-end for 2 websites and one web-app.
+    I am not including this time in my total work experience, but want to say that I keep learning and improving my skills. And of course I am still looking for a job where I can improve myself further and work with a team.
     `}, 
-    {id: 1, name:"Sprakkraft - Brainglass", time:"May 2021 - Feb 2023", position:"front-end developer & app designer", description:`
+    {id: 1, name:"Sprakkraft - Brainglass", time:"Apr 2021 - Feb 2023", position:"front-end developer & app designer", description:`
     It was a Swedish product company where I worked remotely as a frontend developer and also simultaneously as a designer of the new features for the projects we were working on. Also I then integrated those features into our products.
     In addition to that, I was responsible for maintenance of websites: sprakkraft.se, sprakkraft.org.
     And we had outsource contracts with “UR Play”and “YLE”, where my role was mostly maintenance of their websites and adding new features to websites and video players.
@@ -32,7 +32,7 @@ export const projects = [
 ];
 
 export const skills = [
-    "HTML", "CSS", "Javascript", "Typescript", "React.js", "Styled-components", "Git",
+    "HTML", "CSS", "Javascript", "Typescript", "React.js", "React-redux", "Next.js", "Styled-components", "Git",
     "Figma", "English",
 ];
 export const skillsSec = ["Adobe Photoshop", "Adobe Illustrator", "Creativity", "Team work", "Polski",]

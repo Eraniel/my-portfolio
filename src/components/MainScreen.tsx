@@ -417,6 +417,10 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
       setSelectedJob(null);
 
       setTimeout(() => {
+        const element = document.getElementById('prevjobplaces');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
         setActiveIndex(selected.id);
         setSelectedJob(selected);
       }, 50);
@@ -509,7 +513,7 @@ const MainScreen: FunctionComponent = (): JSX.Element => {
               })}
             </ContainerH>
           </SkillsSection>         
-          <PrevJobsSection>
+          <PrevJobsSection id='prevjobplaces'>
             <h2>Job places</h2>
             <ContainerH>
               <JobPlaceInfo>
