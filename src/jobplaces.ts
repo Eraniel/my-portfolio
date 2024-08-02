@@ -32,7 +32,7 @@ export const projects = [
 ];
 
 export const skills = [
-    "HTML5", "CSS","SASS/SCSS", "Flex/Grid", "Javascript", "Typescript", "React.js", "React-redux", "React-router", "Next.js", "Styled-components", "Git", "npm/yarn", "Socket-io", "Matter.js",
-    "Figma", "English", "REST", "SOLID"
+    "HTML5", "CSS","SASS/SCSS", "Flex/Grid", "Javascript", "Typescript", "React.js", "React-redux", "React-router", "Node.js", "Express.js", "Next.js", "Styled-components", "Git", "webpack", "npm/yarn", "Socket-io", "Matter.js",
+    "Figma", "REST", "SOLID"
 ];
-export const skillsSec = ["Continious learning", "Pure clean code", "Responsive/Adaptive", "Adobe Photoshop", "Adobe Illustrator", "Creativity", "Team work", "Polski", "Agile"];
+export const skillsSec = ["Continious learning", "Pure clean code", "Responsive/Adaptive", "Adobe Photoshop", "Adobe Illustrator", "Creativity", "Team work", "English", "Polski", "Agile"];
